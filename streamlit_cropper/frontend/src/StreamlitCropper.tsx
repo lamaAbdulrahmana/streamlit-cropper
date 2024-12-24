@@ -90,19 +90,24 @@ const StreamlitCropper = (props: ComponentProps) => {
             const coords = canvas.getObjects()[0].getBoundingRect()
             Streamlit.setComponentValue({coords:coords})
         }
-        
-        if (realtimeUpdate) {
-        canvas.on("object:modified", handleEvent)
-        return () => {
-            canvas.off("object:modified");
+        if (realtimeUpdate){
+            window.addEventListener("dblclick",handleEvent)
+            return () => {
+                window.removeEventListener("dblclick",handleEvent)
+            }
         }
-        }
-        else {
-        canvas.on("mouse:dblclick", handleEvent)
-        return () => {
-            canvas.off("mouse:dblclick");
-        }
-        }
+        // if (realtimeUpdate) {
+        // canvas.on("object:modified", handleEvent)
+        // return () => {
+        //     canvas.off("object:modified");
+        // }
+        // }
+        // else {
+        // canvas.on("mouse:dblclick", handleEvent)
+        // return () => {
+        //     canvas.off("mouse:dblclick");
+        // }
+        // }
     })
 
     return (
